@@ -3,9 +3,16 @@ from tkinter import messagebox
 import subprocess
 import os
 
+
+# Ruta a tu proyecto Git
+GIT_PROJECT_PATH = r"D:\BackUp\2024\Programacion\git proyects\pythonDeploy"
+
 # Función para verificar actualizaciones en GitHub
 def check_for_updates():
     try:
+        # Cambiar al directorio del proyecto Git
+        os.chdir(GIT_PROJECT_PATH)
+        
         # Si el repositorio ya está clonado, actualiza
         if os.path.exists('.git'):
             # Obtiene los últimos cambios del repositorio remoto
@@ -18,9 +25,11 @@ def check_for_updates():
             else:
                 messagebox.showinfo("Actualización", "El repositorio está actualizado.")
         else:
-            messagebox.showerror("Error", "No se detecta un repositorio git.")
+            messagebox.showerror("Error", "No se detecta un repositorio git en la ruta.")
     except subprocess.CalledProcessError as e:
         messagebox.showerror("Error", f"Error al verificar actualizaciones: {e}")
+    except Exception as e:
+        messagebox.showerror("Error", f"Error inesperado: {e}")
 
 # Función para actualizar el repositorio
 def update_repository():
